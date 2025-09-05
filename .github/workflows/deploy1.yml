@@ -35,14 +35,14 @@ jobs:
           context: ./springboot-app3
           file: ./springboot-app3/Dockerfile
           push: true
-          tags: jungwonalicia/springboot3-web3:latest
+          tags: hyunho001211/docker-aws:latest
           platforms: linux/amd64
 
       # 5. 서버 배포 경로 변수 설정
       - name: Set deploy variables
         id: vars
         run: |
-          echo "DEPLOY_DIR=~/springboot3/springboot3-web3" >> $GITHUB_OUTPUT
+          echo "DEPLOY_DIR=~/hyunho001211/docker-aws" >> $GITHUB_OUTPUT
 
       # 6. SSH로 EC2 접속 → docker compose 배포
       - name: Deploy via SSH (compose up)
@@ -54,7 +54,7 @@ jobs:
           port: ${{ secrets.EC2_PORT || 22 }}
           script: |
             set -e
-            cd ~/springboot3
+            cd ~/docker-aws
 
             # (Docker Hub가 비공개 레포일 때만 필요)
             if [ -n "${{ secrets.DOCKERHUB_USERNAME }}" ] && [ -n "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
